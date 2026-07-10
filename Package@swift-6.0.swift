@@ -15,7 +15,7 @@ extension Target.Dependency {
     static var translating: Self { .product(name: "Translating", package: "swift-translating") }
     static var urlRouting: Self { .product(name: "URLRouting", package: "swift-url-routing") }
     static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
-    static var dependenciesTestSupport: Self { .product(name: "DependenciesTestSupport", package: "swift-dependencies") }
+    static var dependenciesTestSupport: Self { .product(name: "Dependencies Test Support", package: "swift-dependencies") }
 }
 
 let package = Package(
