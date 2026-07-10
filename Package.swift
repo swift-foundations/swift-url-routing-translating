@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version: 6.3.1
 
 import Foundation
 import PackageDescription
@@ -15,14 +15,14 @@ extension Target.Dependency {
     static var translating: Self { .product(name: "Translating", package: "swift-translating") }
     static var urlRouting: Self { .product(name: "URLRouting", package: "swift-url-routing") }
     static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
-    static var dependenciesTestSupport: Self { .product(name: "DependenciesTestSupport", package: "swift-dependencies") }
+    static var dependenciesTestSupport: Self { .product(name: "Dependencies Test Support", package: "swift-dependencies") }
 }
 
 let package = Package(
     name: "swift-url-routing-translating",
     platforms: [
-        .macOS(.v14),
-        .iOS(.v17)
+        .macOS(.v26),
+        .iOS(.v26)
     ],
     products: [
         .library(
@@ -31,9 +31,9 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/coenttb/swift-translating.git", from: "0.0.1"),
-        .package(url: "https://github.com/pointfreeco/swift-url-routing.git", from: "0.6.2"),
-        .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.9.2")
+        .package(url: "https://github.com/swift-foundations/swift-translating.git", branch: "main"),
+        .package(url: "https://github.com/swift-foundations/swift-url-routing.git", from: "0.6.2"),
+        .package(url: "https://github.com/swift-foundations/swift-dependencies.git", branch: "main")
     ],
     targets: [
         .target(

@@ -6,7 +6,7 @@
 //
 
 import Dependencies
-import DependenciesTestSupport
+import Dependencies_Test_Support
 import Foundation
 import Testing
 import Translating
@@ -29,7 +29,6 @@ struct URLRoutingTranslatingPerformanceTests {
     @Suite(
         "Parsing Performance - TranslatedString vs String",
         .serialized,
-        .dependency(\.locale, .english),
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -196,7 +195,6 @@ struct URLRoutingTranslatingPerformanceTests {
     @Suite(
         "Multi-language Parsing Performance",
         .serialized,
-        .dependency(\.locale, .english),
         .dependency(\.language, .english)
     )
     struct MultiLanguagePerformanceTests {
@@ -305,8 +303,13 @@ struct URLRoutingTranslatingPerformanceTests {
             let languageCounts = [2, 5, 10, 20]
             var results: [(Int, Duration)] = []
 
+            // `Language` (BCP47.LanguageTag) is not CaseIterable. `.supported` is
+            // swift-translating's own documented replacement for the former
+            // `Language.allCases` (see Translating+Dependencies/LanguagesKey.swift).
+            let scalingLanguages = Array(Swift.Set<Language>.supported)
+
             for languageCount in languageCounts {
-                let languages = Array(Language.allCases.prefix(languageCount))
+                let languages = Array(scalingLanguages.prefix(languageCount))
 
                 let result = ContinuousClock().measure {
                     withDependencies {
@@ -364,7 +367,6 @@ struct URLRoutingTranslatingPerformanceTests {
     @Suite(
         "URL Generation Performance",
         .serialized,
-        .dependency(\.locale, .english),
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -521,7 +523,6 @@ struct URLRoutingTranslatingPerformanceTests {
     @Suite(
         "Router Integration Performance",
         .serialized,
-        .dependency(\.locale, .english),
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )

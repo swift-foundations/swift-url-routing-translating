@@ -6,6 +6,7 @@
 //
 
 import Dependencies
+import Foundation
 import Translating
 import URLRouting
 
@@ -95,6 +96,43 @@ extension TranslatedString: @retroactive ParserPrinter {
     }
 }
 
+// MARK: - Slug Generation
+
+/// Converts every language's translation into a URL-safe slug.
+///
+/// `swift-translating` used to ship this as `Translated<String>.slug()` (coenttb-era
+/// package). It was deleted outright — not renamed — by the "Swift Institute <> coenttb
+/// heritage" restructure (`swift-translating` commit `1753ac1a`), which also removed the
+/// backing `String.slug()` helper. No migration target exists upstream, so both are
+/// reimplemented here as the minimal local equivalent, preserving the original semantics
+/// bit-for-bit (verified against the deleted `SlugFunctionalityTests` suite in that
+/// commit's parent).
+extension TranslatedString {
+    /// Returns a copy of this translated string with every language's value slugified.
+    ///
+    /// The result still conforms to `Parser`/`ParserPrinter` (via the conformances above),
+    /// so it can be used directly inside a `Path { ... }` builder to generate and match
+    /// URL-friendly path segments in any configured language.
+    public func slug() -> TranslatedString {
+        self.map { $0.slug() }
+    }
+}
+
+/// Minimal local reimplementation of the coenttb-era `String.slug()` helper, deleted
+/// upstream from `swift-translating` without a replacement (see `TranslatedString.slug()`
+/// above). `fileprivate` (rather than `private`) because both this file's original
+/// `debugURLPaths` call site and the new `TranslatedString.slug()` above call it from
+/// within `extension TranslatedString`, not `extension String` — `private` would not be
+/// visible across that type boundary even in the same file.
+extension String {
+    fileprivate func slug() -> String {
+        self
+            .lowercased()
+            .replacingOccurrences(of: "[\\W]+", with: "-", options: .regularExpression)
+            .replacingOccurrences(of: "^-|-$", with: "", options: .regularExpression)
+    }
+}
+
 // MARK: - Debugging Helpers
 
 extension TranslatedString {
@@ -127,9 +165,9 @@ extension TranslatedString {
             let translation = self[language]
             let slugified = translation.slug()
             if translation == slugified {
-                return "/\(language.rawValue)/\(translation)"
+                return "/\(language.value)/\(translation)"
             } else {
-                return "/\(language.rawValue)/\(translation) → /\(language.rawValue)/\(slugified)"
+                return "/\(language.value)/\(translation) → /\(language.value)/\(slugified)"
             }
         }
 

@@ -6,7 +6,7 @@
 //
 
 import Dependencies
-import DependenciesTestSupport
+import Dependencies_Test_Support
 import Foundation
 import Testing
 import Translating
@@ -17,7 +17,6 @@ import URLRoutingTranslating
 
 @Suite(
     "TranslatedString+URLRouting Tests",
-    .dependency(\.locale, .english),
     .dependency(\.language, .english),
     .dependency(\.languages, [.english, .dutch])
 )
@@ -311,8 +310,8 @@ struct TranslatedStringURLRoutingTests {
         func testDebugTranslationsShowsAllLanguageTranslations() async throws {
             let debugOutput = TestTranslatedString.home.debugTranslations
 
-            #expect(debugOutput.contains("english: 'home'"))
-            #expect(debugOutput.contains("dutch: 'thuis'"))
+            #expect(debugOutput.contains("en: 'home'"))
+            #expect(debugOutput.contains("nl: 'thuis'"))
             #expect(debugOutput.contains("TranslatedString"))
         }
 
