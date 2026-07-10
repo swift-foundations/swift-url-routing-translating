@@ -33,7 +33,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/swift-foundations/swift-translating.git", from: "0.0.1"),
         .package(url: "https://github.com/swift-foundations/swift-url-routing.git", from: "0.6.2"),
-        .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.9.2"),
+        .package(url: "https://github.com/swift-foundations/swift-dependencies.git", branch: "main"),
     ],
     targets: [
         .target(
