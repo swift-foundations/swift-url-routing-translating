@@ -15,6 +15,14 @@ import URLRoutingTranslating
 
 // MARK: - README Verification Tests
 
+// Route enum from README, hoisted to file scope so `@Cases` can synthesize its
+// `.cases` witness (the macro does not apply to types nested inside a suite struct).
+@Cases
+enum ReadmeRoute: Equatable {
+    case home
+    case about
+}
+
 @Suite("README Verification")
 struct ReadmeVerificationTests {
 
@@ -33,21 +41,15 @@ struct ReadmeVerificationTests {
         ]
     }
 
-    // Route enum from README
-    enum ReadmeRoute: Equatable {
-        case home
-        case about
-    }
-
     // Router from README
     struct ReadmeRouter: ParserPrinter {
         var body: some URLRouting.Router<ReadmeRoute> {
             OneOf {
-                URLRouting.Route(.case(ReadmeRoute.home)) {
+                URLRouting.Route(.case(ReadmeRoute.cases.home)) {
                     Path { ReadmeTranslatedStrings.home.slug() }
                 }
 
-                URLRouting.Route(.case(ReadmeRoute.about)) {
+                URLRouting.Route(.case(ReadmeRoute.cases.about)) {
                     Path { ReadmeTranslatedStrings.about.slug() }
                 }
             }
@@ -167,9 +169,12 @@ struct ReadmeVerificationTests {
         // Example from README lines 139-149
         let translatedString = ReadmeTranslatedStrings.home
 
-        // Verify TranslatedString conforms to Parser and ParserPrinter
-        let _: any Parser = translatedString
-        let _: any ParserPrinter = translatedString
+        // Verify TranslatedString conforms to Parser.Protocol and Parser.Bidirectional
+        // (the component-level surface `Path { }` actually requires post-rewrite;
+        // the pre-rewrite check was against the old generic, Failure-unpinned
+        // top-level `Parser`/`ParserPrinter` protocols, which no longer exist).
+        let _: any Parser.`Protocol`<Substring, Void, TranslatedStringParsingError> = translatedString
+        let _: any Parser.Bidirectional<Substring, Void, TranslatedStringParsingError> = translatedString
 
         // Verify parse method exists
         var input = Substring("home")

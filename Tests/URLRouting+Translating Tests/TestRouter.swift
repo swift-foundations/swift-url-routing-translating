@@ -11,6 +11,7 @@ import URLRoutingTranslating
 
 // MARK: - Test Route
 
+@Cases
 enum TestRoute: Equatable, Sendable {
     case home
     case about
@@ -25,27 +26,27 @@ enum TestRoute: Equatable, Sendable {
 struct TestRouter: ParserPrinter {
     var body: some URLRouting.Router<TestRoute> {
         OneOf {
-            URLRouting.Route(.case(TestRoute.home)) {
+            URLRouting.Route(.case(TestRoute.cases.home)) {
                 Path { TestTranslatedString.home.slug() }
             }
 
-            URLRouting.Route(.case(TestRoute.about)) {
+            URLRouting.Route(.case(TestRoute.cases.about)) {
                 Path { TestTranslatedString.about.slug() }
             }
 
-            URLRouting.Route(.case(TestRoute.contact)) {
+            URLRouting.Route(.case(TestRoute.cases.contact)) {
                 Path { TestTranslatedString.contact.slug() }
             }
 
-            URLRouting.Route(.case(TestRoute.privacyPolicy)) {
+            URLRouting.Route(.case(TestRoute.cases.privacyPolicy)) {
                 Path { TestTranslatedString.privacyPolicy.slug() }
             }
 
-            URLRouting.Route(.case(TestRoute.generalTerms)) {
+            URLRouting.Route(.case(TestRoute.cases.generalTerms)) {
                 Path { TestTranslatedString.generalTerms.slug() }
             }
 
-            URLRouting.Route(.case(TestRoute.newsletter)) {
+            URLRouting.Route(.case(TestRoute.cases.newsletter)) {
                 Path { TestTranslatedString.newsletter.slug() }
             }
         }

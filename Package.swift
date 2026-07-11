@@ -1,4 +1,4 @@
-// swift-tools-version: 6.3.1
+// swift-tools-version: 6.3.3
 
 import Foundation
 import PackageDescription
@@ -22,7 +22,10 @@ let package = Package(
     name: "swift-url-routing-translating",
     platforms: [
         .macOS(.v26),
-        .iOS(.v26)
+        .iOS(.v26),
+        .tvOS(.v26),
+        .watchOS(.v26),
+        .visionOS(.v26)
     ],
     products: [
         .library(
@@ -32,7 +35,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/swift-foundations/swift-translating.git", branch: "main"),
-        .package(url: "https://github.com/swift-foundations/swift-url-routing.git", from: "0.6.2"),
+        .package(url: "https://github.com/swift-foundations/swift-url-routing.git", branch: "main"),
         .package(url: "https://github.com/swift-foundations/swift-dependencies.git", branch: "main")
     ],
     targets: [
@@ -53,7 +56,7 @@ let package = Package(
             ]
         )
     ],
-    swiftLanguageModes: [.v5]
+    swiftLanguageModes: [.v6]
 )
 
 extension String { var tests: Self { "\(self) Tests" } }

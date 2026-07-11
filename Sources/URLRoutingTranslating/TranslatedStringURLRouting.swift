@@ -10,7 +10,7 @@ import Foundation
 import Translating
 import URLRouting
 
-/// TranslatedString conforms to Parser and ParserPrinter for use in URL routing.
+/// TranslatedString conforms to `Parser.Protocol` and `Parser.Bidirectional` for use in URL routing.
 ///
 /// ## Usage in Routers
 ///
@@ -36,11 +36,12 @@ import URLRouting
 ///
 /// When generating URLs, the current language from Dependencies is used to select
 /// which translation to output.
-extension TranslatedString: @retroactive Parser {
+extension TranslatedString: @retroactive Parser.`Protocol` {
     public typealias Input = Substring
     public typealias Output = Void
+    public typealias Failure = TranslatedStringParsingError
 
-    public func parse(_ input: inout Substring) throws {
+    public func parse(_ input: inout Substring) throws(Failure) -> Output {
         @Dependency(\.language) var currentLanguage
         @Dependency(\.languages) var languages
 
@@ -72,12 +73,12 @@ extension TranslatedString: @retroactive Parser {
 }
 
 /// Error thrown when a TranslatedString fails to parse a URL path component
-package struct TranslatedStringParsingError: Error, CustomDebugStringConvertible {
+public struct TranslatedStringParsingError: Error, CustomDebugStringConvertible {
     let input: String
     let availableTranslations: [String]
     let checkedLanguages: [Language]
 
-    package var debugDescription: String {
+    public var debugDescription: String {
         """
         Failed to match '\(input)' against \(checkedLanguages.count) language translations.
         Available translations: \(availableTranslations.joined(separator: ", "))
@@ -85,8 +86,8 @@ package struct TranslatedStringParsingError: Error, CustomDebugStringConvertible
     }
 }
 
-extension TranslatedString: @retroactive ParserPrinter {
-    public func print(_ output: Void, into input: inout Substring) throws {
+extension TranslatedString: @retroactive Parser.Printer {
+    public func print(_ output: Void, into input: inout Substring) throws(Failure) {
         @Dependency(\.language) var language
 
         // Use the translation for the current language
@@ -95,6 +96,8 @@ extension TranslatedString: @retroactive ParserPrinter {
         input = Substring(translation)
     }
 }
+
+extension TranslatedString: @retroactive Parser.Bidirectional {}
 
 // MARK: - Slug Generation
 
@@ -110,7 +113,7 @@ extension TranslatedString: @retroactive ParserPrinter {
 extension TranslatedString {
     /// Returns a copy of this translated string with every language's value slugified.
     ///
-    /// The result still conforms to `Parser`/`ParserPrinter` (via the conformances above),
+    /// The result still conforms to `Parser.Protocol`/`Parser.Bidirectional` (via the conformances above),
     /// so it can be used directly inside a `Path { ... }` builder to generate and match
     /// URL-friendly path segments in any configured language.
     public func slug() -> TranslatedString {

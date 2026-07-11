@@ -381,13 +381,13 @@ struct URLRoutingTranslatingPerformanceTests {
             struct SimpleStringRouter: ParserPrinter {
                 var body: some URLRouting.Router<TestRoute> {
                     OneOf {
-                        URLRouting.Route(.case(TestRoute.home)) {
+                        URLRouting.Route(.case(TestRoute.cases.home)) {
                             Path { "home" }
                         }
-                        URLRouting.Route(.case(TestRoute.about)) {
+                        URLRouting.Route(.case(TestRoute.cases.about)) {
                             Path { "about-us" }
                         }
-                        URLRouting.Route(.case(TestRoute.contact)) {
+                        URLRouting.Route(.case(TestRoute.cases.contact)) {
                             Path { "contact" }
                         }
                     }
@@ -621,16 +621,16 @@ struct URLRoutingTranslatingPerformanceTests {
             struct StringRouter: ParserPrinter {
                 var body: some URLRouting.Router<TestRoute> {
                     OneOf {
-                        URLRouting.Route(.case(TestRoute.home)) { Path { "home" } }
-                        URLRouting.Route(.case(TestRoute.about)) { Path { "about-us" } }
-                        URLRouting.Route(.case(TestRoute.contact)) { Path { "contact" } }
-                        URLRouting.Route(.case(TestRoute.privacyPolicy)) {
+                        URLRouting.Route(.case(TestRoute.cases.home)) { Path { "home" } }
+                        URLRouting.Route(.case(TestRoute.cases.about)) { Path { "about-us" } }
+                        URLRouting.Route(.case(TestRoute.cases.contact)) { Path { "contact" } }
+                        URLRouting.Route(.case(TestRoute.cases.privacyPolicy)) {
                             Path { "privacy-policy" }
                         }
-                        URLRouting.Route(.case(TestRoute.generalTerms)) {
+                        URLRouting.Route(.case(TestRoute.cases.generalTerms)) {
                             Path { "general-terms-and-conditions" }
                         }
-                        URLRouting.Route(.case(TestRoute.newsletter)) { Path { "newsletter" } }
+                        URLRouting.Route(.case(TestRoute.cases.newsletter)) { Path { "newsletter" } }
                     }
                 }
             }
