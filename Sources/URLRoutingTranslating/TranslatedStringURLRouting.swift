@@ -8,6 +8,7 @@
 import Dependencies
 import Foundation
 import Translating
+import Translating_Dependencies
 import URLRouting
 
 /// TranslatedString conforms to `Parser.Protocol` and `Parser.Bidirectional` for use in URL routing.

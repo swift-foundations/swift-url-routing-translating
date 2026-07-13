@@ -13,6 +13,7 @@ extension Target.Dependency {
 
 extension Target.Dependency {
     static var translating: Self { .product(name: "Translating", package: "swift-translating") }
+    static var translatingDependencies: Self { .product(name: "Translating Dependencies", package: "swift-translating-dependencies") }
     static var urlRouting: Self { .product(name: "URLRouting", package: "swift-url-routing") }
     static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
     static var dependenciesTestSupport: Self { .product(name: "Dependencies Test Support", package: "swift-dependencies") }
@@ -35,6 +36,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/swift-foundations/swift-translating.git", branch: "main"),
+        .package(url: "https://github.com/swift-foundations/swift-translating-dependencies.git", branch: "main"),
         .package(url: "https://github.com/swift-foundations/swift-url-routing.git", branch: "main"),
         .package(url: "https://github.com/swift-foundations/swift-dependencies.git", branch: "main")
     ],
@@ -43,6 +45,7 @@ let package = Package(
             name: .urlRoutingTranslating,
             dependencies: [
                 .translating,
+                .translatingDependencies,
                 .urlRouting,
                 .dependencies
             ]
