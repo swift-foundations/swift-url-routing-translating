@@ -18,24 +18,24 @@ import URLRoutingTranslating
 #endif
 
 @Suite(
-    "URLRoutingTranslating Performance Tests",
+
     .serialized,
     .disabled("Enable for performance testing")
 )
-struct URLRoutingTranslatingPerformanceTests {
+struct Test {
 
     // MARK: - Parsing Performance Tests
 
     @Suite(
-        "Parsing Performance - TranslatedString vs String",
+
         .serialized,
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
-    struct ParsingPerformanceTests {
+    struct Test {
 
-        @Test("String literal parsing performance (baseline)")
-        func stringLiteralParsingPerformance() throws {
+        @Test
+        func `String literal parsing performance (baseline)`() throws {
             let iterations = 10_000
             let testInput = "home"
             let clock = ContinuousClock()
@@ -66,8 +66,8 @@ struct URLRoutingTranslatingPerformanceTests {
             #expect(result < .seconds(1), "String parsing should be very fast")
         }
 
-        @Test("TranslatedString parsing performance - Current language match")
-        func translatedStringParsingCurrentLanguagePerformance() throws {
+        @Test
+        func `Translated String parsing performance - Current language match`() throws {
             let iterations = 10_000
             let testInput = "home"
             let translatedString = TestTranslatedString.home
@@ -97,8 +97,8 @@ struct URLRoutingTranslatingPerformanceTests {
             #expect(result < .seconds(2), "TranslatedString parsing should be reasonably fast")
         }
 
-        @Test("TranslatedString parsing performance - Alternative language match")
-        func translatedStringParsingAlternativeLanguagePerformance() throws {
+        @Test
+        func `Translated String parsing performance - Alternative language match`() throws {
             let iterations = 10_000
             let testInput = "thuis"  // Dutch word, will be checked after English
             let translatedString = TestTranslatedString.home
@@ -131,8 +131,8 @@ struct URLRoutingTranslatingPerformanceTests {
             )
         }
 
-        @Test("Performance comparison - String vs TranslatedString parsing")
-        func performanceComparisonStringVsTranslatedString() throws {
+        @Test
+        func `Performance comparison - String vs Translated String parsing`() throws {
             let iterations = 10_000
             let testInput = "home"
 
@@ -193,14 +193,14 @@ struct URLRoutingTranslatingPerformanceTests {
     // MARK: - Multi-language Performance Tests
 
     @Suite(
-        "Multi-language Parsing Performance",
+
         .serialized,
         .dependency(\.language, .english)
     )
-    struct MultiLanguagePerformanceTests {
+    struct Test {
 
-        @Test("Performance with 2 languages (English + Dutch)")
-        func performanceWithTwoLanguages() throws {
+        @Test
+        func `Performance with 2 languages (English + Dutch)`() throws {
             let iterations = 5_000
             let testInput = "thuis"  // Dutch word
             let translatedString = TestTranslatedString.home
@@ -229,8 +229,8 @@ struct URLRoutingTranslatingPerformanceTests {
             print("   Languages checked: 2")
         }
 
-        @Test("Performance with 5 languages")
-        func performanceWithFiveLanguages() throws {
+        @Test
+        func `Performance with 5 languages`() throws {
             let iterations = 5_000
             let testInput = "nieuwsbrief"  // Dutch word
             let translatedString = TestTranslatedString.newsletter
@@ -259,8 +259,8 @@ struct URLRoutingTranslatingPerformanceTests {
             print("   Languages checked: 5")
         }
 
-        @Test("Performance with 10 languages")
-        func performanceWithTenLanguages() throws {
+        @Test
+        func `Performance with 10 languages`() throws {
             let iterations = 5_000
             let testInput = "contact"
             let translatedString = TestTranslatedString.contact
@@ -294,8 +294,8 @@ struct URLRoutingTranslatingPerformanceTests {
             print("   Languages checked: 10")
         }
 
-        @Test("Language count scaling analysis")
-        func languageCountScalingAnalysis() throws {
+        @Test
+        func `Language count scaling analysis`() throws {
             let iterations = 2_000
             let testInput = "contact"  // Will match first language (English)
             let translatedString = TestTranslatedString.contact
@@ -365,15 +365,15 @@ struct URLRoutingTranslatingPerformanceTests {
     // MARK: - URL Generation Performance Tests
 
     @Suite(
-        "URL Generation Performance",
+
         .serialized,
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
-    struct URLGenerationPerformanceTests {
+    struct Test {
 
-        @Test("String URL generation performance (baseline)")
-        func stringURLGenerationPerformance() throws {
+        @Test
+        func `String URL generation performance (baseline)`() throws {
             let iterations = 10_000
             let clock = ContinuousClock()
 
@@ -420,8 +420,8 @@ struct URLRoutingTranslatingPerformanceTests {
             #expect(result < .seconds(1), "String URL generation should be very fast")
         }
 
-        @Test("TranslatedString URL generation performance")
-        func translatedStringURLGenerationPerformance() throws {
+        @Test
+        func `Translated String URL generation performance`() throws {
             let iterations = 10_000
             let router = TestRouter()
             let clock = ContinuousClock()
@@ -453,8 +453,8 @@ struct URLRoutingTranslatingPerformanceTests {
             )
         }
 
-        @Test("URL generation in different languages")
-        func urlGenerationDifferentLanguagesPerformance() throws {
+        @Test
+        func `URL generation in different languages`() throws {
             let iterations = 5_000
             let router = TestRouter()
             let clock = ContinuousClock()
@@ -521,15 +521,15 @@ struct URLRoutingTranslatingPerformanceTests {
     // MARK: - Router Integration Performance Tests
 
     @Suite(
-        "Router Integration Performance",
+
         .serialized,
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
-    struct RouterIntegrationPerformanceTests {
+    struct Test {
 
-        @Test("Round-trip performance - Parse and generate URLs")
-        func roundTripPerformance() throws {
+        @Test
+        func `Round-trip performance - Parse and generate URLs`() throws {
             let iterations = 5_000
             let router = TestRouter()
             let routes: [TestRoute] = [
@@ -569,8 +569,8 @@ struct URLRoutingTranslatingPerformanceTests {
             )
         }
 
-        @Test("Error handling performance - Invalid paths")
-        func errorHandlingPerformance() throws {
+        @Test
+        func `Error handling performance - Invalid paths`() throws {
             let iterations = 5_000
             let router = TestRouter()
             let invalidPaths = [
@@ -608,13 +608,13 @@ struct URLRoutingTranslatingPerformanceTests {
     // MARK: - Memory Usage Tests
 
     @Suite(
-        "Memory Usage Analysis",
+
         .serialized
     )
-    struct MemoryUsageTests {
+    struct Test {
 
-        @Test("Memory usage comparison - String vs TranslatedString routers")
-        func memoryUsageComparison() throws {
+        @Test
+        func `Memory usage comparison - String vs Translated String routers`() throws {
             let initialMemory = Self.getMemoryUsage()
 
             // Create string-based router

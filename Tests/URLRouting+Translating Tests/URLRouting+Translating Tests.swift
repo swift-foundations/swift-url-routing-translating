@@ -16,19 +16,19 @@ import URLRoutingTranslating
 // MARK: - Main Test Suite
 
 @Suite(
-    "TranslatedString+URLRouting Tests",
+
     .dependency(\.language, .english),
     .dependency(\.languages, [.english, .dutch])
 )
-struct TranslatedStringURLRoutingTests {
+struct Test {
 
     // MARK: - Router Integration Tests
 
-    @Suite("Router Integration")
-    struct RouterIntegrationTests {
+    @Suite
+    struct Test {
 
-        @Test("Router matches current language paths")
-        func testRouterMatchesCurrentLanguagePaths() async throws {
+        @Test
+        func `Router matches current language paths`() async throws {
             let router = TestRouter()
 
             // Test English parsing (current language)
@@ -40,8 +40,8 @@ struct TranslatedStringURLRoutingTests {
             try #expect(router.match(path: "/newsletter") == .newsletter)
         }
 
-        @Test("Router matches alternative language paths")
-        func testRouterMatchesAlternativeLanguagePaths() async throws {
+        @Test
+        func `Router matches alternative language paths`() async throws {
             let router = TestRouter()
 
             // Test Dutch parsing (non-current language)
@@ -53,8 +53,8 @@ struct TranslatedStringURLRoutingTests {
             try #expect(router.match(path: "/nieuwsbrief") == .newsletter)
         }
 
-        @Test("Router adapts to different current language")
-        func testRouterAdaptsToDifferentCurrentLanguage() async throws {
+        @Test
+        func `Router adapts to different current language`() async throws {
             let router = TestRouter()
 
             try withDependencies {
@@ -70,8 +70,8 @@ struct TranslatedStringURLRoutingTests {
             }
         }
 
-        @Test("Router throws helpful error for unknown paths")
-        func testRouterThrowsHelpfulErrorForUnknownPaths() async throws {
+        @Test
+        func `Router throws helpful error for unknown paths`() async throws {
             let router = TestRouter()
 
             do {
@@ -87,11 +87,11 @@ struct TranslatedStringURLRoutingTests {
 
     // MARK: - URL Generation Tests
 
-    @Suite("URL Generation")
-    struct URLGenerationTests {
+    @Suite
+    struct Test {
 
-        @Test("Generates URLs in current language")
-        func testGeneratesURLsInCurrentLanguage() async throws {
+        @Test
+        func `Generates URLs in current language`() async throws {
             let router = TestRouter()
 
             // Test English URL generation (current language)
@@ -103,8 +103,8 @@ struct TranslatedStringURLRoutingTests {
             #expect(router.url(for: .newsletter).description == "/newsletter")
         }
 
-        @Test("Generates URLs in Dutch when language is Dutch")
-        func testGeneratesURLsInDutchWhenLanguageIsDutch() async throws {
+        @Test
+        func `Generates URLs in Dutch when language is Dutch`() async throws {
             let router = TestRouter()
 
             withDependencies {
@@ -120,8 +120,8 @@ struct TranslatedStringURLRoutingTests {
             }
         }
 
-        @Test("Round-trip parsing and printing works correctly")
-        func testRoundTripParsingAndPrintingWorksCorrectly() async throws {
+        @Test
+        func `Round-trip parsing and printing works correctly`() async throws {
             let router = TestRouter()
             let routes: [TestRoute] = [
                 .home, .about, .contact, .privacyPolicy, .generalTerms, .newsletter,
@@ -149,11 +149,11 @@ struct TranslatedStringURLRoutingTests {
 
     // MARK: - Direct Parser Tests
 
-    @Suite("Direct Parser Functionality")
-    struct DirectParserTests {
+    @Suite
+    struct Test {
 
-        @Test("Parser directly parses correct input")
-        func testParserDirectlyParsesCorrectInput() async throws {
+        @Test
+        func `Parser directly parses correct input`() async throws {
             var englishInput = Substring("home")
             try TestTranslatedString.home.parse(&englishInput)
             #expect(englishInput.isEmpty)
@@ -163,8 +163,8 @@ struct TranslatedStringURLRoutingTests {
             #expect(dutchInput.isEmpty)
         }
 
-        @Test("Slugified strings work correctly in parsing")
-        func testSlugifiedStringsWorkCorrectlyInParsing() async throws {
+        @Test
+        func `Slugified strings work correctly in parsing`() async throws {
             let slugifiedString = TestTranslatedString.about.slug()
 
             var englishInput = Substring("about-us")
@@ -176,8 +176,8 @@ struct TranslatedStringURLRoutingTests {
             #expect(dutchInput.isEmpty)
         }
 
-        @Test("Parser handles empty input gracefully")
-        func testParserHandlesEmptyInputGracefully() async throws {
+        @Test
+        func `Parser handles empty input gracefully`() async throws {
             var emptyInput = Substring("")
 
             do {
@@ -189,8 +189,8 @@ struct TranslatedStringURLRoutingTests {
             }
         }
 
-        @Test("Parser handles partial matches correctly")
-        func testParserHandlesPartialMatchesCorrectly() async throws {
+        @Test
+        func `Parser handles partial matches correctly`() async throws {
             var partialInput = Substring("homecoming")  // Starts with "home" but has more
 
             // Parser should match "home" and leave "coming" in the input
@@ -201,11 +201,11 @@ struct TranslatedStringURLRoutingTests {
 
     // MARK: - Direct ParserPrinter Tests
 
-    @Suite("Direct ParserPrinter Functionality")
-    struct DirectParserPrinterTests {
+    @Suite
+    struct Test {
 
-        @Test("ParserPrinter directly prints current language")
-        func testParserPrinterDirectlyPrintsCurrentLanguage() async throws {
+        @Test
+        func `Parser Printer directly prints current language`() async throws {
             var output = Substring("")
             try TestTranslatedString.home.print((), into: &output)
             #expect(output == "home")
@@ -219,8 +219,8 @@ struct TranslatedStringURLRoutingTests {
             }
         }
 
-        @Test("Slugified strings work correctly in printing")
-        func testSlugifiedStringsWorkCorrectlyInPrinting() async throws {
+        @Test
+        func `Slugified strings work correctly in printing`() async throws {
             let slugifiedString = TestTranslatedString.about.slug()
 
             var output = Substring("")
@@ -240,13 +240,13 @@ struct TranslatedStringURLRoutingTests {
     // MARK: - Multi-language Tests
 
     @Suite(
-        "Multi-language Support",
+
         .dependency(\.languages, [.english, .dutch, .german])
     )
-    struct MultiLanguageTests {
+    struct Test {
 
-        @Test("Parser works with more than two languages")
-        func testParserWorksWithMoreThanTwoLanguages() async throws {
+        @Test
+        func `Parser works with more than two languages`() async throws {
             var englishInput = Substring("multi-language-test")
             try TestTranslatedString.multiLanguage.slug().parse(&englishInput)
             #expect(englishInput.isEmpty)
@@ -260,8 +260,8 @@ struct TranslatedStringURLRoutingTests {
             #expect(germanInput.isEmpty)
         }
 
-        @Test("Current language is checked first for performance")
-        func testCurrentLanguageIsCheckedFirstForPerformance() async throws {
+        @Test
+        func `Current language is checked first for performance`() async throws {
             var input = Substring("test")
 
             // With English as current language, it should match English first
@@ -281,11 +281,11 @@ struct TranslatedStringURLRoutingTests {
 
     // MARK: - Edge Cases Tests
 
-    @Suite("Edge Cases")
-    struct EdgeCasesTests {
+    @Suite
+    struct Test {
 
-        @Test("TranslatedString with identical translations works correctly")
-        func testTranslatedStringWithIdenticalTranslationsWorksCorrectly() async throws {
+        @Test
+        func `Translated String with identical translations works correctly`() async throws {
             var input = Substring("same")
             try TestTranslatedString.identical.parse(&input)
             #expect(input.isEmpty)
@@ -303,11 +303,11 @@ struct TranslatedStringURLRoutingTests {
 
     // MARK: - Debugging Tests
 
-    @Suite("Debugging Helpers")
-    struct DebuggingTests {
+    @Suite
+    struct Test {
 
-        @Test("debugTranslations shows all language translations")
-        func testDebugTranslationsShowsAllLanguageTranslations() async throws {
+        @Test
+        func `Debug Translations shows all language translations`() async throws {
             let debugOutput = TestTranslatedString.home.debugTranslations
 
             #expect(debugOutput.contains("en: 'home'"))
@@ -315,8 +315,8 @@ struct TranslatedStringURLRoutingTests {
             #expect(debugOutput.contains("TranslatedString"))
         }
 
-        @Test("debugURLPaths shows URL-friendly paths")
-        func testDebugURLPathsShowsURLFriendlyPaths() async throws {
+        @Test
+        func `Debug URLPaths shows URL-friendly paths`() async throws {
             let debugOutput = TestTranslatedString.about.debugURLPaths
 
             #expect(debugOutput.contains("/en/about us → /en/about-us"))
@@ -324,8 +324,8 @@ struct TranslatedStringURLRoutingTests {
             #expect(debugOutput.contains("URL paths"))
         }
 
-        @Test("debugURLPaths handles already slugified strings")
-        func testDebugURLPathsHandlesAlreadySlugifiedStrings() async throws {
+        @Test
+        func `Debug URLPaths handles already slugified strings`() async throws {
             let debugOutput = TestTranslatedString.contact.debugURLPaths
 
             // Contact is already URL-friendly in both languages

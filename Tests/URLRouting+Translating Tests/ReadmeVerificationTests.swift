@@ -23,8 +23,8 @@ enum ReadmeRoute: Equatable {
     case about
 }
 
-@Suite("README Verification")
-struct ReadmeVerificationTests {
+@Suite
+struct Test {
 
     // MARK: - Example Setup from README
 
@@ -59,7 +59,7 @@ struct ReadmeVerificationTests {
     // MARK: - Quick Start Example Tests
 
     @Test(
-        "README Quick Start - Define translated strings",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -82,7 +82,7 @@ struct ReadmeVerificationTests {
     }
 
     @Test(
-        "README Quick Start - Create router",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -95,7 +95,7 @@ struct ReadmeVerificationTests {
     }
 
     @Test(
-        "README Quick Start - Parse URLs in any language",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -123,7 +123,7 @@ struct ReadmeVerificationTests {
     }
 
     @Test(
-        "README Quick Start - Generate URLs in current language",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -142,7 +142,7 @@ struct ReadmeVerificationTests {
     }
 
     @Test(
-        "README Quick Start - Switch to Dutch",
+
         .dependency(\.language, .dutch),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -161,7 +161,7 @@ struct ReadmeVerificationTests {
     // MARK: - API Reference Examples
 
     @Test(
-        "README API - Core Extensions exist",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -188,7 +188,7 @@ struct ReadmeVerificationTests {
     }
 
     @Test(
-        "README API - Always use .slug()",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -208,7 +208,7 @@ struct ReadmeVerificationTests {
     }
 
     @Test(
-        "README API - Set up Dependencies",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -230,7 +230,7 @@ struct ReadmeVerificationTests {
     }
 
     @Test(
-        "README API - Use dictionary literals",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -248,7 +248,7 @@ struct ReadmeVerificationTests {
     // MARK: - Integration Tests
 
     @Test(
-        "README Full Example - Complete workflow",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
@@ -294,7 +294,7 @@ struct ReadmeVerificationTests {
     }
 
     @Test(
-        "README Performance Claims - Parsing speed",
+
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
