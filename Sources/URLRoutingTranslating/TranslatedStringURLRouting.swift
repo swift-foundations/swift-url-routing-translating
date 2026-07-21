@@ -87,17 +87,20 @@ public struct TranslatedStringParsingError: Error, CustomDebugStringConvertible 
     }
 }
 
-extension TranslatedString: @retroactive Parser.Printer {
-    public func print(_ output: Void, into input: inout Substring) throws(Failure) {
+extension TranslatedString: @retroactive Serializer.`Protocol` {
+    public typealias Buffer = Substring
+
+    public borrowing func serialize(_ output: Void, into buffer: inout Substring) throws(Failure) {
         @Dependency(\.language) var language
 
-        // Use the translation for the current language
+        // Use the translation for the current language (forward-append dual
+        // of the retired Parser.Printer prepend implementation).
         // Note: Assumes the TranslatedString is already slugified if needed
-        let translation = self[language]
-        input = Substring(translation)
+        buffer += self[language]
     }
 }
 
+extension TranslatedString: @retroactive Coder.`Protocol` {}
 extension TranslatedString: @retroactive Parser.Bidirectional {}
 
 // MARK: - Slug Generation
