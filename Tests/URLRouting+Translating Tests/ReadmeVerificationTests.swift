@@ -24,7 +24,7 @@ enum ReadmeRoute: Equatable {
 }
 
 @Suite
-struct Test {
+struct `README Verification` {
 
     // MARK: - Example Setup from README
 

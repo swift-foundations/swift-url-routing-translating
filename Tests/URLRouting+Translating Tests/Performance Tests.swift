@@ -22,7 +22,7 @@ import URLRoutingTranslating
     .serialized,
     .disabled("Enable for performance testing")
 )
-struct Test {
+struct `Performance` {
 
     // MARK: - Parsing Performance Tests
 
@@ -32,7 +32,7 @@ struct Test {
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
-    struct Test {
+    struct `Parsing Performance` {
 
         @Test
         func `String literal parsing performance (baseline)`() throws {
@@ -197,7 +197,7 @@ struct Test {
         .serialized,
         .dependency(\.language, .english)
     )
-    struct Test {
+    struct `Multi-language Performance` {
 
         @Test
         func `Performance with 2 languages (English + Dutch)`() throws {
@@ -370,7 +370,7 @@ struct Test {
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
-    struct Test {
+    struct `URL Generation Performance` {
 
         @Test
         func `String URL generation performance (baseline)`() throws {
@@ -526,7 +526,7 @@ struct Test {
         .dependency(\.language, .english),
         .dependency(\.languages, [.english, .dutch])
     )
-    struct Test {
+    struct `Router Integration Performance` {
 
         @Test
         func `Round-trip performance - Parse and generate URLs`() throws {
@@ -611,7 +611,7 @@ struct Test {
 
         .serialized
     )
-    struct Test {
+    struct `Memory Usage` {
 
         @Test
         func `Memory usage comparison - String vs Translated String routers`() throws {

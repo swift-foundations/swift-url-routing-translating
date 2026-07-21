@@ -56,7 +56,8 @@ let package = Package(
                 .urlRoutingTranslating,
                 .dependenciesTestSupport,
                 .dependencies
-            ]
+            ],
+            path: "Tests/URLRouting+Translating Tests"
         )
     ],
     swiftLanguageModes: [.v6]

@@ -20,12 +20,12 @@ import URLRoutingTranslating
     .dependency(\.language, .english),
     .dependency(\.languages, [.english, .dutch])
 )
-struct Test {
+struct `URLRouting Translating` {
 
     // MARK: - Router Integration Tests
 
     @Suite
-    struct Test {
+    struct `Router Integration` {
 
         @Test
         func `Router matches current language paths`() async throws {
@@ -88,7 +88,7 @@ struct Test {
     // MARK: - URL Generation Tests
 
     @Suite
-    struct Test {
+    struct `URL Generation` {
 
         @Test
         func `Generates URLs in current language`() async throws {
@@ -150,7 +150,7 @@ struct Test {
     // MARK: - Direct Parser Tests
 
     @Suite
-    struct Test {
+    struct `Direct Parser` {
 
         @Test
         func `Parser directly parses correct input`() async throws {
@@ -202,7 +202,7 @@ struct Test {
     // MARK: - Direct ParserPrinter Tests
 
     @Suite
-    struct Test {
+    struct `Direct ParserPrinter` {
 
         @Test
         func `Parser Printer directly prints current language`() async throws {
@@ -243,7 +243,7 @@ struct Test {
 
         .dependency(\.languages, [.english, .dutch, .german])
     )
-    struct Test {
+    struct `Multi-language` {
 
         @Test
         func `Parser works with more than two languages`() async throws {
@@ -282,7 +282,7 @@ struct Test {
     // MARK: - Edge Cases Tests
 
     @Suite
-    struct Test {
+    struct `Edge Cases` {
 
         @Test
         func `Translated String with identical translations works correctly`() async throws {
@@ -304,7 +304,7 @@ struct Test {
     // MARK: - Debugging Tests
 
     @Suite
-    struct Test {
+    struct `Debugging` {
 
         @Test
         func `Debug Translations shows all language translations`() async throws {
