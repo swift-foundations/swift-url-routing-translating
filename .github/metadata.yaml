@@ -1,0 +1,9 @@
+# .github/metadata.yaml
+description: "Multilingual routing for swift-url-routing, bridging swift-translating and URL routing."
+topics:
+  - foundations
+  - url-routing
+  - translating
+homepage: "https://swift-institute.org"
+readme:
+  family: E
