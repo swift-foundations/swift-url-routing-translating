@@ -11,32 +11,32 @@ import Translating
 import Translating_Dependencies
 import URLRouting
 
-/// TranslatedString conforms to `Parser.Protocol` and `Parser.Bidirectional` for use in URL routing.
-///
-/// ## Usage in Routers
-///
-/// When using TranslatedString in URL routes, always call `.slug()` to ensure
-/// spaces and special characters are converted to URL-friendly format:
-///
-/// ```swift
-/// URLRouting.Route(.case(Route.Website.contact)) {
-///     Path { String.contact.slug() }  // Converts "contact us" → "contact-us"
-/// }
-/// ```
-///
-/// ## Parsing Behavior
-///
-/// The parser will match any of the available language translations. For example,
-/// if a TranslatedString contains:
-/// - English: "privacy-policy"
-/// - Dutch: "privacybeleid"
-///
-/// Both `/en/privacy-policy` and `/nl/privacybeleid` will successfully parse.
-///
-/// ## Printing Behavior
-///
-/// When generating URLs, the current language from Dependencies is used to select
-/// which translation to output.
+// TranslatedString conforms to `Parser.Protocol` and `Parser.Bidirectional` for use in URL routing.
+//
+// ## Usage in Routers
+//
+// When using TranslatedString in URL routes, always call `.slug()` to ensure
+// spaces and special characters are converted to URL-friendly format:
+//
+// ```swift
+// URLRouting.Route(.case(Route.Website.contact)) {
+//     Path { String.contact.slug() }  // Converts "contact us" → "contact-us"
+// }
+// ```
+//
+// ## Parsing Behavior
+//
+// The parser will match any of the available language translations. For example,
+// if a TranslatedString contains:
+// - English: "privacy-policy"
+// - Dutch: "privacybeleid"
+//
+// Both `/en/privacy-policy` and `/nl/privacybeleid` will successfully parse.
+//
+// ## Printing Behavior
+//
+// When generating URLs, the current language from Dependencies is used to select
+// which translation to output.
 // `TranslatedString` (swift-translating, L3) conforms to `Parser`/`Serializer`/`Coder`
 // protocols owned by swift-parser-primitives and swift-coder-primitives (L1). Neither
 // owner can host the conformance: L1 → L3 reverses the dependency graph, and hosting it
@@ -82,7 +82,7 @@ extension TranslatedString: @retroactive Parser.`Protocol` {
 }
 
 /// Error thrown when a TranslatedString fails to parse a URL path component
-public struct TranslatedStringParsingError: Error, CustomDebugStringConvertible {
+public struct TranslatedStringParsingError: Swift.Error, CustomDebugStringConvertible {
     let input: String
     let availableTranslations: [String]
     let checkedLanguages: [Language]
