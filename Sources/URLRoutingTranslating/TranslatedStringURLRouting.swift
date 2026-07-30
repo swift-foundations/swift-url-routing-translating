@@ -37,6 +37,14 @@ import URLRouting
 ///
 /// When generating URLs, the current language from Dependencies is used to select
 /// which translation to output.
+// `TranslatedString` (swift-translating, L3) conforms to `Parser`/`Serializer`/`Coder`
+// protocols owned by swift-parser-primitives and swift-coder-primitives (L1). Neither
+// owner can host the conformance: L1 → L3 reverses the dependency graph, and hosting it
+// in swift-translating would require swift-translating → swift-translating-dependencies
+// → swift-translating, a package cycle. This package is the narrowest owner that can
+// depend on both sides; retroactive conformance is its purpose, and `@retroactive` is
+// the deliberate, compiler-required annotation. Adjudicated on #6.
+// swift-format-ignore: AvoidRetroactiveConformances
 extension TranslatedString: @retroactive Parser.`Protocol` {
     public typealias Input = Substring
     public typealias Output = Void
@@ -87,6 +95,8 @@ public struct TranslatedStringParsingError: Error, CustomDebugStringConvertible 
     }
 }
 
+// reason: see the ownership note on the Parser.`Protocol` conformance above (#6)
+// swift-format-ignore: AvoidRetroactiveConformances
 extension TranslatedString: @retroactive Serializer.`Protocol` {
     public typealias Buffer = Substring
 
@@ -100,7 +110,11 @@ extension TranslatedString: @retroactive Serializer.`Protocol` {
     }
 }
 
+// reason: see the ownership note on the Parser.`Protocol` conformance above (#6)
+// swift-format-ignore: AvoidRetroactiveConformances
 extension TranslatedString: @retroactive Coder.`Protocol` {}
+// reason: see the ownership note on the Parser.`Protocol` conformance above (#6)
+// swift-format-ignore: AvoidRetroactiveConformances
 extension TranslatedString: @retroactive Parser.Bidirectional {}
 
 // MARK: - Slug Generation
