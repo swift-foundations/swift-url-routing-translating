@@ -173,8 +173,10 @@ struct `README Verification` {
         // (the component-level surface `Path { }` actually requires post-rewrite;
         // the pre-rewrite check was against the old generic, Failure-unpinned
         // top-level `Parser`/`ParserPrinter` protocols, which no longer exist).
-        let _: any Parser.`Protocol`<Substring, Void, TranslatedStringParsingError> = translatedString
-        let _: any Parser.Bidirectional<Substring, Void, TranslatedStringParsingError> = translatedString
+        let _: any Parser.`Protocol`<Substring, Void, TranslatedStringParsingError> =
+            translatedString
+        let _: any Parser.Bidirectional<Substring, Void, TranslatedStringParsingError> =
+            translatedString
 
         // Verify parse method exists
         var input = Substring("home")

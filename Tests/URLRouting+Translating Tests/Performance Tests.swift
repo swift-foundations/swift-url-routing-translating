@@ -406,7 +406,8 @@ struct `Performance` {
 
             let timeInSeconds =
                 Double(result.components.seconds) + Double(result.components.attoseconds) / 1e18
-            let operationsPerSecond = Double(iterations * 3) / timeInSeconds  // 3 URLs per iteration
+            // 3 URLs per iteration
+            let operationsPerSecond = Double(iterations * 3) / timeInSeconds
 
             print("📊 BASELINE - String URL Generation Performance:")
             print("   Time: \(result)")
@@ -630,7 +631,9 @@ struct `Performance` {
                         URLRouting.Route(.case(TestRoute.cases.generalTerms)) {
                             Path { "general-terms-and-conditions" }
                         }
-                        URLRouting.Route(.case(TestRoute.cases.newsletter)) { Path { "newsletter" } }
+                        URLRouting.Route(.case(TestRoute.cases.newsletter)) {
+                            Path { "newsletter" }
+                        }
                     }
                 }
             }
