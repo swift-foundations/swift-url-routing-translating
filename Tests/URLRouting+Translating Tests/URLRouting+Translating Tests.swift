@@ -11,6 +11,7 @@ import Foundation
 import Testing
 import Translating
 import URLRouting
+import URL_Routing_Foundation_Integration
 import URLRoutingTranslating
 
 // MARK: - Main Test Suite
