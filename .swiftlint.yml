@@ -1,7 +1,0 @@
-# SwiftLint configuration
-# Inherits from the shared parent configuration via swift-foundations/.github,
-# the thin L3 pass-through to the swift-institute Tier 1 canonical.
-
-parent_config: https://raw.githubusercontent.com/swift-foundations/.github/main/.swiftlint.yml
-
-# Package-specific overrides (if needed)
