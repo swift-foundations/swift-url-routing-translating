@@ -208,7 +208,10 @@ private actor TranslatedStringParsingCache {
         let languagesHash: Int
     }
 
-    func getCachedTranslations(for translatedString: TranslatedString, languages: [Language])
+    func getCachedTranslations(
+        for translatedString: TranslatedString,
+        languages: [Language]
+    )
         -> Set<
             String
         >?
